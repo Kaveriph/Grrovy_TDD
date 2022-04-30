@@ -1,20 +1,18 @@
 package petros.efthymiou.groovy.playlist
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.liveData
 import petros.efthymiou.groovy.playlist.placeholder.PlayList
 
 class PlayListViewModel(private val repository: PlayListRepository) : ViewModel() {
-    val playlists = MutableLiveData<Result<List<PlayList>>>()
 
-    init {
-        viewModelScope.launch {
-            repository.getPlayLists().collect {
-                playlists.postValue(it)
-            }
-        }
+    /**
+     * Using livedata builder to populate the values in livedata.
+     * here it is not mutablelivedata. hence outside world cannot modify the contents also.
+     * */
+    val playlists = liveData<Result<List<PlayList>>>() {
+        this.emitSource(repository.getPlayLists().asLiveData())
     }
+
 }
