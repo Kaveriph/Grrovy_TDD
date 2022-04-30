@@ -1,7 +1,8 @@
-package petros.efthymiou.groovy
+package petros.efthymiou.groovy.playlist
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import petros.efthymiou.groovy.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

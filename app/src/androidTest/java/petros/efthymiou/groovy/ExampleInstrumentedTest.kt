@@ -5,13 +5,10 @@ import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
-import com.schibsted.spain.barista.assertion.BaristaRecyclerViewAssertions
 import com.schibsted.spain.barista.assertion.BaristaRecyclerViewAssertions.assertRecyclerViewItemCount
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
-import com.schibsted.spain.barista.internal.matcher.DrawableMatcher
 import com.schibsted.spain.barista.internal.matcher.DrawableMatcher.Companion.withDrawable
 import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.Description
@@ -21,8 +18,8 @@ import org.hamcrest.TypeSafeMatcher
 import org.junit.Test
 import org.junit.runner.RunWith
 
-import org.junit.Assert.*
 import org.junit.Rule
+import petros.efthymiou.groovy.playlist.MainActivity
 
 /**
  * Instrumented test, which will execute on an Android device.

@@ -1,4 +1,4 @@
-package petros.efthymiou.groovy
+package petros.efthymiou.groovy.playlist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import petros.efthymiou.groovy.databinding.PlaylistItemBinding
-import petros.efthymiou.groovy.placeholder.PlayList
+import petros.efthymiou.groovy.playlist.placeholder.PlayList
 
 /**
  * [RecyclerView.Adapter] that can display a [PlaceholderItem].

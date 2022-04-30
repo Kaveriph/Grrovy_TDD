@@ -1,4 +1,4 @@
-package petros.efthymiou.groovy.placeholder
+package petros.efthymiou.groovy.playlist.placeholder
 
 import petros.efthymiou.groovy.R
 

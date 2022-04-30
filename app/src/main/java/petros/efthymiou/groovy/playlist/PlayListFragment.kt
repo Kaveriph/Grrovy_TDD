@@ -1,4 +1,4 @@
-package petros.efthymiou.groovy
+package petros.efthymiou.groovy.playlist
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,7 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
-import petros.efthymiou.groovy.placeholder.PlayList
+import petros.efthymiou.groovy.R
+import petros.efthymiou.groovy.playlist.placeholder.PlayList
 
 /**
  * A fragment representing a list of Items.
