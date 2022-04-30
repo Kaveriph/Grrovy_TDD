@@ -4,8 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import petros.efthymiou.groovy.placeholder.PlayList
 
-class PlayListViewModel(var repository: PlayListRepository) : ViewModel() {
-
+class PlayListViewModel(private val repository: PlayListRepository) : ViewModel() {
     val playlists = MutableLiveData<Result<List<PlayList>>>()
 
     init {

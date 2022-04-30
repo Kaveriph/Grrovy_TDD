@@ -24,8 +24,8 @@ class PlayListViewModelShould {
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    val viewModel:PlayListViewModel
-    val repository: PlayListRepository = mock()
+    private val viewModel:PlayListViewModel
+    private val repository: PlayListRepository = mock()
 
     init {
         viewModel = PlayListViewModel(repository)
