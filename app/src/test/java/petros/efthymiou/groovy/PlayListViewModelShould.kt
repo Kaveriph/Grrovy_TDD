@@ -36,20 +36,18 @@ class PlayListViewModelShould {
 
     @Test
     fun getPlayListsFromRepository() = runBlockingTest {
-        runBlocking {
-            whenever(repository.getPlayLists()).thenReturn(
-                flow {
-                    emit(expected)
-                }
-            )
-        }
-        val viewModel = PlayListViewModel(repository)
+        val viewModel = mockSuccesFullCase()
         viewModel.playlists.getValueForTest()
         verify(repository, times(1)).getPlayLists()
     }
 
     @Test
     fun emitsPlayListsFromRepository() = runBlockingTest {
+        val viewModel = mockSuccesFullCase()
+        assertEquals(expected, viewModel.playlists.getValueForTest())
+    }
+
+    private fun mockSuccesFullCase(): PlayListViewModel {
         runBlocking {
             whenever(repository.getPlayLists()).thenReturn(
                 flow {
@@ -58,6 +56,6 @@ class PlayListViewModelShould {
             )
         }
         val viewModel = PlayListViewModel(repository)
-        assertEquals(expected, viewModel.playlists.getValueForTest())
+        return viewModel
     }
 }
