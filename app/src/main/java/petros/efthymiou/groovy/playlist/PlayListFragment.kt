@@ -19,7 +19,12 @@ class PlayListFragment : Fragment() {
 
     lateinit var viewModel: PlayListViewModel
     lateinit var viewModelFactory: PlayListViewmodelFactory
-    private val playlistService = PlayListService()
+    private val playListApi = object : PlayListApi {
+        override fun fetchAllPlaylists(): List<PlayList> {
+            TODO("Not yet implemented")
+        }
+    }
+    private val playlistService = PlayListService(playListApi)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
