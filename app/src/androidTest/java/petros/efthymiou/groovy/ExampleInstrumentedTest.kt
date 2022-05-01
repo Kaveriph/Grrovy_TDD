@@ -19,7 +19,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 import org.junit.Rule
-import petros.efthymiou.groovy.playlist.MainActivity
+import petros.efthymiou.groovy.MainActivity
 
 /**
  * Instrumented test, which will execute on an Android device.

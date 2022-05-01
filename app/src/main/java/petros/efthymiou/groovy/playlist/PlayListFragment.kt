@@ -1,14 +1,14 @@
 package petros.efthymiou.groovy.playlist
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import petros.efthymiou.groovy.R
 import petros.efthymiou.groovy.playlist.placeholder.PlayList
 
@@ -19,6 +19,7 @@ class PlayListFragment : Fragment() {
 
     lateinit var viewModel: PlayListViewModel
     lateinit var viewModelFactory: PlayListViewmodelFactory
+    private val playlistService = PlayListService()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +34,7 @@ class PlayListFragment : Fragment() {
     }
 
     private fun setupViewModel() {
-        viewModelFactory = PlayListViewmodelFactory(PlayListRepository())
+        viewModelFactory = PlayListViewmodelFactory(PlayListRepository(playlistService))
         viewModel = ViewModelProvider(this, viewModelFactory).get(PlayListViewModel::class.java)
     }
 
