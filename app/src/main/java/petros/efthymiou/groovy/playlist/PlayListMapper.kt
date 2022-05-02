@@ -8,16 +8,11 @@ import javax.inject.Inject
 class PlayListMapper @Inject constructor() : Function1<List<PlayListRaw>, List<PlayList>> {
 
     override fun invoke(playlistRaw: List<PlayListRaw>): List<PlayList> {
-        val playList = mutableListOf<PlayList>()
-        for (item in playlistRaw) {
-            playList.add(
-                PlayList(
-                    item.id, item.name, item.category,
-                    if (item.category.equals("rock")) R.mipmap.rock else R.mipmap.playlist
-                )
+        return playlistRaw.map { item ->
+            PlayList(  item.id, item.name, item.category,
+                if (item.category.equals("rock")) R.mipmap.rock else R.mipmap.playlist
             )
         }
-        return playList
     }
 
 }

@@ -22,10 +22,35 @@ class PlayListMapperShould : BaseUnitTest() {
         PlayList( "3", "Hard Rock Cafe", "rock", R.mipmap.rock),
         PlayList( "4", "Hard Rock Cafe", "mixed", R.mipmap.playlist))
 
+    val playList = playListMapper.invoke(playlistRaw)
+
     @Test
-    fun convertPlayListRawToPlayList() {
-        val playlist = playListMapper.invoke(playlistRaw)
-        assertEquals(playListExpected, playlist)
+    fun keepSameId() {
+        assertEquals(playlistRaw.get(0).id, playList.get(0).id)
     }
 
+    @Test
+    fun keepSameName() {
+        assertEquals(playlistRaw.get(0).name, playList.get(0).name)
+    }
+
+    @Test
+    fun keepSameCategory() {
+        assertEquals(playlistRaw.get(0).category, playList.get(0).category)
+    }
+
+    @Test
+    fun mapDefaultImageWhenotRock() {
+        assertEquals(playList.get(1).image, R.mipmap.playlist)
+    }
+
+    @Test
+    fun mapDefaultImageWhenRock() {
+        assertEquals(playList.get(0).image, R.mipmap.rock)
+    }
+
+    @Test
+    fun convertPlayListRawToPlayList() {
+        assertEquals(playListExpected, playList)
+    }
 }
