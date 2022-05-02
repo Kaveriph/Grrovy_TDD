@@ -40,17 +40,8 @@ class PlayListViewModelShould : BaseUnitTest() {
 
     @Test
     fun emitErrorWhenReceiveError() {
-        mockErrorCase()
-        val viewModel = PlayListViewModel(repository)
+        val viewModel = mockErrorCase()
         assertEquals(exception, viewModel.playlists.getValueForTest()?.exceptionOrNull())
-    }
-
-    private fun mockErrorCase() {
-        runBlocking {
-            whenever(repository.getPlayLists()).thenReturn(flow {
-                emit(Result.failure<List<PlayList>>(exception = exception))
-            })
-        }
     }
 
     @Test
@@ -67,7 +58,16 @@ class PlayListViewModelShould : BaseUnitTest() {
         val viewModel = mockSuccessFullCase()
         viewModel.loader.captureValues {
             viewModel.playlists.getValueForTest()
-            assertEquals(false, values[1])
+            assertEquals(false, values.last())
+        }
+    }
+
+    @Test
+    fun emitDismissLoaderAfterError() = runBlockingTest {
+        val viewModel = mockErrorCase()
+        viewModel.loader.captureValues {
+            viewModel.playlists.getValueForTest()
+            assertEquals(false, values.last())
         }
     }
 
@@ -79,9 +79,16 @@ class PlayListViewModelShould : BaseUnitTest() {
                 }
             )
         }
-        val viewModel = PlayListViewModel(repository)
-        return viewModel
+        return PlayListViewModel(repository)
     }
 
+    private fun mockErrorCase(): PlayListViewModel {
+        runBlocking {
+            whenever(repository.getPlayLists()).thenReturn(flow {
+                emit(Result.failure<List<PlayList>>(exception = exception))
+            })
+        }
+        return PlayListViewModel(repository)
+    }
 
 }

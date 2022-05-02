@@ -9,6 +9,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
 import com.schibsted.spain.barista.assertion.BaristaRecyclerViewAssertions.assertRecyclerViewItemCount
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
+import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertNotDisplayed
 import com.schibsted.spain.barista.internal.matcher.DrawableMatcher.Companion.withDrawable
 import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.Description
@@ -27,7 +28,7 @@ import petros.efthymiou.groovy.MainActivity
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 @RunWith(AndroidJUnit4::class)
-class ExampleInstrumentedTest {
+class PlayListFeature {
 
 
     val activityTestRule = ActivityTestRule(MainActivity::class.java)
@@ -75,8 +76,14 @@ class ExampleInstrumentedTest {
     }
 
     @Test
-    fun displaysLoaderWhileFetchingImage() {
+    fun displaysLoaderWhileFetchingPlayLists() {
         assertDisplayed(R.id.loader)
+    }
+
+    @Test
+    fun hideLoaderAfterFetchingPlayLists() {
+        Thread.sleep(4000)
+        assertNotDisplayed(R.id.loader)
     }
 
 }

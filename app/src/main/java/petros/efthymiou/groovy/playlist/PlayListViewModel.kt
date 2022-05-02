@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.liveData
+import kotlinx.coroutines.flow.onEach
 import petros.efthymiou.groovy.playlist.placeholder.PlayList
 
 class PlayListViewModel(private val repository: PlayListRepository) : ViewModel() {
@@ -15,8 +16,10 @@ class PlayListViewModel(private val repository: PlayListRepository) : ViewModel(
     val loader = MutableLiveData<Boolean>()
     val playlists = liveData<Result<List<PlayList>>>() {
         loader.value = true
-        this.emitSource(repository.getPlayLists().asLiveData())
-        //loader.value = false
+        this.emitSource(repository.getPlayLists()
+            .onEach {
+                loader.value = false
+            }.asLiveData())
     }
 
 }

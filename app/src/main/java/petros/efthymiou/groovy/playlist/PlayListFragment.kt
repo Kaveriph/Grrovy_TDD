@@ -45,6 +45,7 @@ class PlayListFragment : Fragment() {
         viewModel.loader.observe(viewLifecycleOwner) { loading ->
             when(loading) {
                 true -> loader.visibility = View.VISIBLE
+                else -> loader.visibility = View.GONE
             }
         }
         viewModel.playlists.observe(viewLifecycleOwner) { playLists ->
