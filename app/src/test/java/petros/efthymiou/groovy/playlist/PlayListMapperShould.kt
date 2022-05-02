@@ -24,7 +24,7 @@ class PlayListMapperShould : BaseUnitTest() {
 
     @Test
     fun convertPlayListRawToPlayList() {
-        val playlist = playListMapper.convert(playlistRaw)
+        val playlist = playListMapper.invoke(playlistRaw)
         assertEquals(playListExpected, playlist)
     }
 

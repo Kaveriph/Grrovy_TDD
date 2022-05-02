@@ -30,7 +30,7 @@ class PlayListRepositoryShould : BaseUnitTest() {
     }
 
     @Test
-    fun emitPlayListsFromService() = runBlockingTest {
+    fun emitMappedPlayListsFromService() = runBlockingTest {
         mockSuccessFullCase()
         val playlists = repository.getPlayLists()
         assertEquals(playlist, playlists.first().getOrNull())
@@ -47,7 +47,7 @@ class PlayListRepositoryShould : BaseUnitTest() {
     fun callMapperToConvertPlayListRawToPlayList() = runBlockingTest {
         mockSuccessFullCase()
         repository.getPlayLists()
-        verify(playListMapper, times(1)).convert(playlistRaw)
+        verify(playListMapper, times(1)).invoke(playlistRaw)
     }
 
     private suspend fun mockFailureCase() {
@@ -64,6 +64,6 @@ class PlayListRepositoryShould : BaseUnitTest() {
                 emit(Result.success(playlistRaw))
             }
         )
-        whenever(playListMapper.convert(playlistRaw)).thenReturn(playlist)
+        whenever(playListMapper.invoke(playlistRaw)).thenReturn(playlist)
     }
 }
