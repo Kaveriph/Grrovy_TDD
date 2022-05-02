@@ -53,7 +53,7 @@ class PlayListFeature {
             .check(matches(isDisplayed()))
 
         onView(allOf(withId(R.id.playlist_image), isDescendantOfA(nthChildOf(withId(R.id.playlists_list), 0))))
-            .check(matches(withDrawable(R.mipmap.playlist)))
+            .check(matches(withDrawable(R.mipmap.rock)))
             .check(matches(isDisplayed()))
     }
 
