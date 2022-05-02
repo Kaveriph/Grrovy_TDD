@@ -74,4 +74,9 @@ class ExampleInstrumentedTest {
         }
     }
 
+    @Test
+    fun displaysLoaderWhileFetchingImage() {
+        assertDisplayed(R.id.loader)
+    }
+
 }

@@ -22,7 +22,6 @@
             android:id="@+id/playlist_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hard rock cafe"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textSize="19sp" />
 
@@ -31,7 +30,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="rock"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textSize="19sp" />
     </LinearLayout>

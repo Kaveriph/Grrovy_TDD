@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_playlist.*
 import petros.efthymiou.groovy.R
 import petros.efthymiou.groovy.playlist.placeholder.PlayList
 import javax.inject.Inject
@@ -41,6 +42,11 @@ class PlayListFragment : Fragment() {
     }
 
     private fun observeLivedata() {
+        viewModel.loader.observe(viewLifecycleOwner) { loading ->
+            when(loading) {
+                true -> loader.visibility = View.VISIBLE
+            }
+        }
         viewModel.playlists.observe(viewLifecycleOwner) { playLists ->
             if(!playLists.getOrNull().isNullOrEmpty()) {
                 setupList(playLists.getOrNull()!!)
@@ -51,7 +57,7 @@ class PlayListFragment : Fragment() {
     }
 
     private fun setupList(playLists: List<PlayList>) {
-        with(view as RecyclerView) {
+        with(playlists_list as RecyclerView) {
             layoutManager = LinearLayoutManager(context)
             adapter = MyPlayListRecyclerViewAdapter(playLists)
         }
