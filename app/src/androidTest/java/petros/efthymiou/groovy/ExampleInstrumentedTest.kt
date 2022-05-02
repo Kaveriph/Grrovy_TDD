@@ -40,11 +40,11 @@ class ExampleInstrumentedTest {
 
     @Test
     fun displayListOfPlaylists() {
-        Thread.sleep(4000)
+        Thread.sleep(5000)
         assertRecyclerViewItemCount(R.id.playlists_list, 10)
 
         onView(allOf(withId(R.id.playlist_name), isDescendantOfA(nthChildOf(withId(R.id.playlists_list), 0))))
-            .check(matches(withText("Hard rock cafe")))
+            .check(matches(withText("Hard Rock Cafe")))
             .check(matches(isDisplayed()))
 
         onView(allOf(withId(R.id.playlist_category), isDescendantOfA(nthChildOf(withId(R.id.playlists_list), 0))))

@@ -20,6 +20,8 @@ class PlayListService(private val playListApi:PlayListApi) {
                 }
             }
         } catch (exception : Exception) {
+            println("exception : ${exception.message} ")
+            println("exception : ${exception.printStackTrace()}")
             return flow {
                 emit(Result.failure(RuntimeException("Something went wrong")))
             }

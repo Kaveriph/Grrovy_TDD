@@ -9,8 +9,12 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.flow.flow
+import okhttp3.OkHttpClient
 import petros.efthymiou.groovy.R
 import petros.efthymiou.groovy.playlist.placeholder.PlayList
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 /**
  * A fragment representing a list of Items.
@@ -20,11 +24,20 @@ class PlayListFragment : Fragment() {
     lateinit var viewModel: PlayListViewModel
     lateinit var viewModelFactory: PlayListViewmodelFactory
     private val playListApi = object : PlayListApi {
-        override fun fetchAllPlaylists(): List<PlayList> {
-            TODO("Not yet implemented")
+        override suspend fun fetchAllPlaylists(): List<PlayList> {
+            return listOf()
         }
     }
-    private val playlistService = PlayListService(playListApi)
+
+    private val retrofit = Retrofit.Builder()
+        .baseUrl("http://10.0.2.2:2999/")
+        .client(OkHttpClient())
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+    private val api = retrofit.create(PlayListApi::class.java)
+
+    private val playlistService = PlayListService(api)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,11 +57,11 @@ class PlayListFragment : Fragment() {
     }
 
     private fun observeLivedata() {
-        viewModel.playlists.observe(this as LifecycleOwner) { playLists ->
-            if(playLists.getOrNull() != null) {
+        viewModel.playlists.observe(this) { playLists ->
+            if(!playLists.getOrNull().isNullOrEmpty()) {
                 setupList(playLists.getOrNull()!!)
             } else {
-                // ToDo
+                println("Playlists are null")
             }
         }
     }
