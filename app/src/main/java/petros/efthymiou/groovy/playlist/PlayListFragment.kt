@@ -5,39 +5,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.flow.flow
-import okhttp3.OkHttpClient
+import dagger.hilt.android.AndroidEntryPoint
 import petros.efthymiou.groovy.R
 import petros.efthymiou.groovy.playlist.placeholder.PlayList
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
 /**
  * A fragment representing a list of Items.
  */
+@AndroidEntryPoint
 class PlayListFragment : Fragment() {
 
-    lateinit var viewModel: PlayListViewModel
-    lateinit var viewModelFactory: PlayListViewmodelFactory
-    private val playListApi = object : PlayListApi {
-        override suspend fun fetchAllPlaylists(): List<PlayList> {
-            return listOf()
-        }
-    }
+    private lateinit var viewModel: PlayListViewModel
 
-    private val retrofit = Retrofit.Builder()
-        .baseUrl("http://10.0.2.2:2999/")
-        .client(OkHttpClient())
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-
-    private val api = retrofit.create(PlayListApi::class.java)
-
-    private val playlistService = PlayListService(api)
+    @Inject
+    lateinit var viewModelFactory: PlayListViewModelFactory
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,12 +37,11 @@ class PlayListFragment : Fragment() {
     }
 
     private fun setupViewModel() {
-        viewModelFactory = PlayListViewmodelFactory(PlayListRepository(playlistService))
         viewModel = ViewModelProvider(this, viewModelFactory).get(PlayListViewModel::class.java)
     }
 
     private fun observeLivedata() {
-        viewModel.playlists.observe(this) { playLists ->
+        viewModel.playlists.observe(viewLifecycleOwner) { playLists ->
             if(!playLists.getOrNull().isNullOrEmpty()) {
                 setupList(playLists.getOrNull()!!)
             } else {

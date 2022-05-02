@@ -5,8 +5,9 @@ import kotlinx.coroutines.flow.flow
 import petros.efthymiou.groovy.playlist.placeholder.PlayList
 import java.lang.Exception
 import java.lang.RuntimeException
+import javax.inject.Inject
 
-class PlayListService(private val playListApi:PlayListApi) {
+class PlayListService @Inject constructor(private val playListApi:PlayListApi) {
     suspend fun fetchPlaylists(): Flow<Result<List<PlayList>>> {
         try {
             val playList = playListApi.fetchAllPlaylists()
