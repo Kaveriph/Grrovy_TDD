@@ -9,6 +9,7 @@ import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import petros.efthymiou.groovy.playlist.placeholder.PlayList
+import petros.efthymiou.groovy.playlist.placeholder.PlayListRaw
 import java.lang.RuntimeException
 
 class PlayListRepositoryShould : BaseUnitTest() {
@@ -17,10 +18,13 @@ class PlayListRepositoryShould : BaseUnitTest() {
     private val exception = RuntimeException("Something went wrong")
     private val playlist = mock<List<PlayList>>()
     private val service: PlayListService = mock()
-    private val repository = PlayListRepository(service)
+    private val playlistRaw = mock<List<PlayListRaw>>()
+    private val playListMapper:PlayListMapper = mock()
+    private val repository = PlayListRepository(service, playListMapper)
 
     @Test
     fun getPlaylistsService() = runBlockingTest {
+        mockSuccessFullCase()
         repository.getPlayLists()
         verify(service, times(1)).fetchPlaylists()
     }
@@ -39,10 +43,17 @@ class PlayListRepositoryShould : BaseUnitTest() {
         assertEquals(exception, repository.getPlayLists().first().exceptionOrNull())
     }
 
+    @Test
+    fun callMapperToConvertPlayListRawToPlayList() = runBlockingTest {
+        mockSuccessFullCase()
+        repository.getPlayLists()
+        verify(playListMapper, times(1)).convert(playlistRaw)
+    }
+
     private suspend fun mockFailureCase() {
         whenever(service.fetchPlaylists()).thenReturn(
             flow {
-                emit(Result.failure<List<PlayList>>(exception))
+                emit(Result.failure<List<PlayListRaw>>(exception))
             }
         )
     }
@@ -50,8 +61,9 @@ class PlayListRepositoryShould : BaseUnitTest() {
     private suspend fun mockSuccessFullCase() {
         whenever(service.fetchPlaylists()).thenReturn(
             flow {
-                emit(Result.success(playlist))
+                emit(Result.success(playlistRaw))
             }
         )
+        whenever(playListMapper.convert(playlistRaw)).thenReturn(playlist)
     }
 }

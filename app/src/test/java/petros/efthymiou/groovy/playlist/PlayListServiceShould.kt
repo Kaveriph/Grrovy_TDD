@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import petros.efthymiou.groovy.playlist.placeholder.PlayList
+import petros.efthymiou.groovy.playlist.placeholder.PlayListRaw
 import java.lang.RuntimeException
 
 class PlayListServiceShould : BaseUnitTest() {
@@ -16,7 +16,7 @@ class PlayListServiceShould : BaseUnitTest() {
     private val exception = RuntimeException("No Playlists found!")
     private val playListApi:PlayListApi = mock()
     private val playListService = PlayListService(playListApi)
-    private val playLists = mock<List<PlayList>>()
+    private val playLists = mock<List<PlayListRaw>>()
 
     @Test
     fun invokeFetchAllPlaylists() = runBlockingTest {
