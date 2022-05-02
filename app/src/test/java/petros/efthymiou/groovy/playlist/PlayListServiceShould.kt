@@ -25,7 +25,7 @@ class PlayListServiceShould : BaseUnitTest() {
     }
 
     @Test
-    fun fetchListOfPlay() = runBlockingTest {
+    fun convertValuesToFlowResultAndEmitThem() = runBlockingTest {
         whenever(playListApi.fetchAllPlaylists()).thenReturn(playLists)
         assertEquals(Result.success(playLists), playListService.fetchPlaylists().first())
     }
