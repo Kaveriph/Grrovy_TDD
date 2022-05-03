@@ -78,4 +78,5 @@ dependencies {
     androidTestImplementation('com.schibsted.spain:barista:3.6.0') {
         exclude group: 'org.jetbrains.kotlin' // Only if you already use Kotlin in your project
     }
+    androidTestImplementation 'com.jakewharton.espresso:okhttp3-idling-resource:1.0.0'
 }
